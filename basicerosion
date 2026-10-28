@@ -1,0 +1,17 @@
+import cv2 as cv
+import numpy as np
+import time
+img=cv.imread("/Users/rahulthakare/Downloads/clumpphotos/image2.jpeg")
+while True:
+    hsv_frame=cv.cvtColor(img, cv.COLOR_BGR2HSV)
+    low_yellow = np.array([16,68,100])
+    high_yellow = np.array([35,255,255])
+    yellow_mask = cv.inRange(hsv_frame, low_yellow, high_yellow)
+    kernelC= np.ones((4,4), np.uint8)
+    # closing = cv.morphologyEx(yellow_mask, cv.MORPH_CLOSE, kernelC)
+    eroding = cv.erode(yellow_mask,kernelC)
+    cv.imshow("closing", eroding)
+    key=cv.waitKey(1)
+    if key==ord('q'):
+            break
+print("User exited the program.")
